@@ -1,0 +1,353 @@
+      program sine series
+            open(unit = 11, file = 'sine.in')
+            open(unit = 22, file = 'sine.out')
+            write(22, 1)"ang.(deg) ang.(rad) ser.val. ext.val. diff."
+1           format(a)          
+            do i = 1, 9 
+                  read(11, 2)z
+2                 format(f6.1)
+                  x = z-int(z/360)*360
+                  x = acos(-1.0)*x/180.0
+                  term = x
+                  sum = x
+                  test = 1e-6
+                  n = 0
+                  do while(abs(term).gt.test)
+                        term = -term*(x**2)/((2*n+3)*(2*n+2))
+                        sum = sum + term
+                        n = n+1
+                  end do
+                  y = sin(x)
+                  diff = abs(sum-y)
+                  write(22,3)z, x, sum, y, diff
+3                 format(f6.1,3x,f7.3,3x,f8.5,1x,f8.5,1x,f8.5)                  
+            end do
+            stop
+            end
+
+
+0.0
+5.0
+15.0
+20.0
+30.0
+60.0
+90.0
+200.0
+1000.0
+
+
+ang.(deg) ang.(rad) ser.val. ext.val. diff.
+   0.0     0.000    0.00000  0.00000  0.00000
+   5.0     0.087    0.08716  0.08716  0.00000
+  15.0     0.262    0.25882  0.25882  0.00000
+  20.0     0.349    0.34202  0.34202  0.00000
+  30.0     0.524    0.50000  0.50000  0.00000
+  60.0     1.047    0.86603  0.86603  0.00000
+  90.0     1.571    1.00000  1.00000  0.00000
+ 200.0     3.491   -0.34202 -0.34202  0.00000
+1000.0     4.887   -0.98481 -0.98481  0.00000
+
+
+
+      program cosine series
+            open(unit = 11, file = 'cosine.in')
+            open(unit = 22, file = 'cosine.out')
+            write(22, 1)"ang.(deg) ang.(rad) ser.val. ext.val. diff."
+1           format(a)
+            do i = 1, 9
+                  read(11, 2)z
+2                 format(f6.1)
+                  x = z-int(z/360)*360
+                  x = acos(-1.0)*x/180.0
+                  term = 1
+                  sum = 1
+                  test = 1e-6
+                  n = 1
+                  do while(abs(term).gt.test)
+                        term = -term*(x**2)/((2*n-1)*(2*n))
+                        sum = sum + term
+                        n = n+1
+                  end do
+                  y = cos(x)
+                  diff = abs(sum-y)
+                  write(22, 3)z, x, sum, y, diff
+3                 format(f6.1,3x,f7.3,3x,f8.5,1x,f8.5,1x,f8.5)                  
+            end do
+            stop
+            end
+
+
+0.0
+5.0
+15.0
+20.0
+30.0
+60.0
+90.0
+200.0
+1000.0
+
+
+ang.(deg) ang.(rad) ser.val. ext.val. diff.
+   0.0     0.000    1.00000  1.00000  0.00000
+   5.0     0.087    0.99619  0.99619  0.00000
+  15.0     0.262    0.96593  0.96593  0.00000
+  20.0     0.349    0.93969  0.93969  0.00000
+  30.0     0.524    0.86603  0.86603  0.00000
+  60.0     1.047    0.50000  0.50000  0.00000
+  90.0     1.571   -0.00000 -0.00000  0.00000
+ 200.0     3.491   -0.93969 -0.93969  0.00000
+1000.0     4.887    0.17365  0.17365  0.00000
+
+
+
+      program exponential series
+            open(unit = 11, file = 'exp.in')
+            open(unit =22, file = 'exp.out')
+            write(22,1)"input series-value exact-value difference"
+1           format(a)            
+            do i = 1, 7
+                  read(11,2)x
+2                 format(f5.2)
+                  sum = 1
+                  term = 1
+                  test = 1e-6
+                  n = 1
+                  do while(abs(term).gt.test)
+                        term = term*(x/n)
+                        sum = sum + term                  
+                        n = n+1
+                  end do 
+                  y = exp(x)
+                  diff = abs(sum-y)
+                  write(22,3)x, sum, y, diff
+3                 format(f5.2,2x,f10.6,2x,f10.6,1x,f10.6)
+            end do
+            stop
+            end
+
+
+-7.0
+-4.2
+-2.7
+0.0
+3.2
+5.0
+6.67
+
+
+input series-value exact-value difference
+-7.00    0.000909    0.000912   0.000003
+-4.20    0.014995    0.014996   0.000000
+-2.70    0.067206    0.067206   0.000000
+ 0.00    1.000000    1.000000   0.000000
+ 3.20   24.532534   24.532532   0.000002
+ 5.00  148.413162  148.413162   0.000000
+ 6.67  788.395569  788.395691   0.000122
+
+
+
+      program log series
+            open(unit = 11, file = 'log.in')
+            open(unit =22, file = 'log.out')
+            write(22,1)"input series-value exact-value difference"
+1           format(a)            
+            do i = 1, 7
+                  read(11,2)x
+2                 format(f5.2)
+                  sum = x
+                  term = x
+                  test = 1e-6
+                  n = 2
+                  do while(abs(term).gt.test)
+                        term = -term*(x*(n-1)/n)
+                        sum = sum + term                  
+                        n = n+1
+                  end do 
+                  y = log(1+x)
+                  diff = abs(sum-y)
+                  write(22,3)x, sum, y, diff
+3                 format(f5.2,2x,f10.6,2x,f10.6,1x,f10.6)
+            end do
+            stop
+            end                  
+
+
+-0.99
+-0.69
+-0.17
+0
+0.49
+0.73
+0.99
+
+
+input series-value exact-value difference
+-0.99   -4.605081   -4.605171   0.000090
+-0.69   -1.171182   -1.171183   0.000001
+-0.17   -0.186329   -0.186330   0.000000
+ 0.00    0.000000    0.000000   0.000000
+ 0.49    0.398776    0.398776   0.000000
+ 0.73    0.548122    0.548121   0.000001
+ 0.99    0.688136    0.688135   0.000002
+
+
+
+          program Trapsine
+		implicit none
+		real :: a, b, a1, b1, h, f, s, s1, exact
+		integer :: i, n, k
+		open(unit = 11, file = 'trapsine.in')
+		open(unit = 22, file = 'trapsine.out')
+		write(22, 1)"method value       integration value"
+1		format(a)
+		do k = 1, 15 
+			read(11,2) a1, b1, n
+2                 format(f4.1, f5.1,i5)
+			a = a1/180.0*acos(-1.0)
+			b = b1/180.0*acos(-1.0)
+			s1 = f(a) + f(b)
+			h = (b-a)/n
+			do i = 1 , n-1
+				s1 = s1 + 2*f(a+i*h)
+			end do 
+			exact = -(cos(b)-cos(a))
+			s = h*s1/2
+			write(22,3)s, exact
+3                 	format(1x,f8.5,14x,f8.5)              
+		end do 
+		stop
+		end
+
+		real function f(x)
+		real :: x, n, test, term, sum
+		sum= x
+		term = x
+		test = 1e-6
+		n = 0
+		do while (abs(term).gt.test)
+			term = -term*(x**2)/((2*n+2)*(2*n+3))
+			sum = sum + term
+			n = n+1
+		end do
+		f = sum 
+		return 
+		end
+
+
+
+0.0 180.0 10
+0.0 180.0 50
+0.0 180.0 100
+0.0 180.0 500
+0.0 180.0 1000
+0.0 90.0 10
+0.0 90.0 50
+0.0 90.0 100
+0.0 90.0 500
+0.0 90.0 1000
+60.0 270.0 10
+60.0 270.0 50
+60.0 270.0 100
+60.0 270.0 500
+60.0 270.0 1000
+
+
+method value       integration value
+  1.98352               2.00000
+  1.99934               2.00000
+  1.99984               2.00000
+  1.99999               2.00000
+  2.00000               2.00000
+  0.99794               1.00000
+  0.99992               1.00000
+  0.99998               1.00000
+  1.00000               1.00000
+  1.00000               1.00000
+  0.49439               0.50000
+  0.49978               0.50000
+  0.49994               0.50000
+  0.50000               0.50000
+  0.49994               0.50000
+
+
+
+	program Trapcos
+		implicit none
+		real :: a, b, a1, b1, h, f, s, s1, exact
+		integer :: i, n, k
+		open(unit = 11, file = 'trapcos.in')
+		open(unit = 22, file = 'trapcos.out')
+		write(22, 1)"method value       integration value"
+1		format(a)
+		do k = 1, 15
+			read(11,2) a1, b1, n
+2                 format(f4.1, f5.1,i5)
+			a = a1/180.0*acos(-1.0)
+			b = b1/180.0*acos(-1.0)
+			s1 = f(a) + f(b)
+			h = (b-a)/n
+			do i = 1 , n-1
+				s1 = s1 + 2*f(a+i*h)
+			end do 
+			exact = (sin(b)-sin(a))
+			s = h*s1/2
+			write(22,3)s, exact
+3                 	format(1x,f8.5,14x,f8.5)
+		end do 
+		stop
+		end
+
+		real function f(x)
+		real :: x, n, test, term, sum
+		sum= 1
+		term = 1
+		test = 1e-6
+		n = 1
+		do while (abs(term).gt.test)
+			term = -term*(x**2)/((2*n)*(2*n-1))
+			sum = sum + term
+			n = n+1
+		end do
+		f = sum 
+		return 
+		end
+
+
+
+0.0 180.0 10
+0.0 180.0 50
+0.0 180.0 100
+0.0 180.0 500
+0.0 180.0 1000
+0.0 90.0 10
+0.0 90.0 50
+0.0 90.0 100
+0.0 90.0 500
+0.0 90.0 1000
+60.0 270.0 10
+60.0 270.0 50
+60.0 270.0 100
+60.0 270.0 500
+60.0 270.0 1000
+
+
+method value       integration value
+ -0.00000              -0.00000
+ -0.00000              -0.00000
+  0.00000              -0.00000
+ -0.00000              -0.00000
+ -0.00000              -0.00000
+  0.99794               1.00000
+  0.99992               1.00000
+  0.99998               1.00000
+  1.00000               1.00000
+  1.00000               1.00000
+ -1.84509              -1.86603
+ -1.86519              -1.86603
+ -1.86582              -1.86603
+ -1.86602              -1.86603
+ -1.86582              -1.86603
+
+

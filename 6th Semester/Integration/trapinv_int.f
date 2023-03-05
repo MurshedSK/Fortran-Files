@@ -1,4 +1,4 @@
-          program Trapinv
+          program Trapezoidal_inverse_function
 		implicit none
 		real :: a, b, h, f, x, s, s1 , exact
 		integer :: i, n, k
@@ -17,7 +17,7 @@
 			s = h * s1 / 2
 			exact = atan(2.0*2) / 2.0  - atan(2.0*0) / 2.0
 			write(22, 3)s, exact
-3                 	format(1x, f8.5, 8x, f8.5)              
+3                 format(1x, f8.5, 8x, f8.5)              
 		end do 
 		stop
 		end

@@ -1,4 +1,4 @@
-          program Trapfunc
+          program Trapezoidal_transcendental_function
 		implicit none
 		real :: a, b, h, f, g, x, s, s1, exact
 		integer :: i, n, k
@@ -18,20 +18,20 @@
 			s = h* s1 / 2
 			exact =  g(b) - g(a)
 			write(22,3)s, exact
-3                 	format(1x, f8.5, 8x, f8.5)              
+3                 format(1x, f8.5, 8x, f8.5)              
 		end do 
 		stop
 		end
 
 		real function f(x)
 		real :: x
-		f = sin(x) + (cos(2*x))**2
+		f = sin(x) + (cos(2 * x))**2
 		return 
 		end
 
 		real function g(x)
 		real :: x
-		g = (1.0/8.0) * (4 * x + sin(4*x) - 8 * cos(x))
+		g = (1.0 / 8.0) * (4 * x + sin(4 * x) - 8 * cos(x))
 		return 
 		end
 		

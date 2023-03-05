@@ -1,4 +1,4 @@
-          program Trapquad
+          program Trapezoidal_quadratic_function
 		implicit none
 		real :: a, b, h, f, s, s1
 		integer :: i, n, k
@@ -16,7 +16,7 @@
 			end do 
 			s = h * s1 / 2
 			write(22, 3)s
-3                 	format(1x, f8.5)              
+3                 format(1x, f8.5)              
 		end do 
 		stop
 		end

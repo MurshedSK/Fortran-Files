@@ -1,4 +1,4 @@
-      program to sum up the given series
+      program exponential series
             open(unit = 11, file = "question17.out")
             sum = 0
             x = 0.5

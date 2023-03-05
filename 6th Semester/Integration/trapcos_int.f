@@ -7,19 +7,19 @@
 		write(22, 1)"method value       integration value"
 1		format(a)
 		do k = 1, 15
-			read(11,2) a1, b1, n
-2                 format(f4.1, f5.1,i5)
-			a = a1/180.0*acos(-1.0)
-			b = b1/180.0*acos(-1.0)
+			read(11, 2) a1, b1, n
+2                 format(f4.1, f5.1, i5)
+			a = a1 / 180.0 * acos(-1.0)
+			b = b1 / 180.0 * acos(-1.0)
 			s1 = f(a) + f(b)
-			h = (b-a)/n
+			h = (b-a) / n
 			do i = 1 , n-1
-				s1 = s1 + 2*f(a+i*h)
+				s1 = s1 + 2 * f(a+i*h)
 			end do 
-			exact = (sin(b)-sin(a))
-			s = h*s1/2
-			write(22,3)s, exact
-3                 	format(1x,f8.5,14x,f8.5)
+			exact = (sin(b) - sin(a))
+			s = h * s1 / 2
+			write(22, 3)s, exact
+3                 	format(1x, f8.5, 14x, f8.5)
 		end do 
 		stop
 		end

@@ -1,0 +1,445 @@
+      program Simpson_sine_function
+            implicit none
+            real :: a, b, h, f, s, s1, s2, s_odd, s_even, exact
+            integer :: i, n, k
+            open(unit = 11, file = 'simpsine.in')
+            open(unit = 22, file = 'simpsine.out')
+            write(22, 1)"method value       integration value"
+1	      format(a)
+            do k = 1, 15 
+                  read(11, 2) a, b, n
+2                 format(f4.1, f5.1, i5)
+                  a = a / 180.0 * acos(-1.0)
+                  b = b / 180.0 * acos(-1.0)
+                  s = f(a) + f(b)
+                  h = (b-a) / n
+                  s_odd = 0
+                  do i = 1 , (n) / 2
+                        s_odd = s_odd + 4 * f(a + (2 * i - 1) * h)
+                  end do
+                  s_even = 0
+                  do i = 1 , (n - 2) / 2
+                        s_even = s_even + 2 * f(a + 2 * i * h)
+                  end do 
+                  exact = (sin(b) - sin(a))
+                  s1 = s + s_odd + s_even
+                  s2 = h * s1 / 3
+                  exact = - (cos(b) - cos(a))
+                  
+                  write(22,3)s2, exact
+3                 format(1x, f8.5, 14x, f8.5)              
+            end do 
+            stop
+            end
+
+            real function f(x)
+            real :: x, n, test, term, sum
+            sum = x
+            term = x
+            test = 1e-6
+            n = 0
+            do while (abs(term) .gt. test)
+                  term = - term * (x**2) / ((2 * n + 2) * (2 * n + 3))
+                  sum = sum + term
+                  n = n + 1
+            end do
+            f = sum 
+            return 
+            end
+
+
+
+
+0.0 180.0 10
+0.0 180.0 50
+0.0 180.0 100
+0.0 180.0 500
+0.0 180.0 100000
+0.0 90.0 10
+0.0 90.0 50
+0.0 90.0 100
+0.0 90.0 500
+0.0 90.0 1000
+60.0 270.0 10
+60.0 270.0 50
+60.0 270.0 100
+60.0 270.0 500
+60.0 270.0 1000
+
+
+
+
+
+
+method value       integration value
+  2.00011               2.00000
+  2.00000               2.00000
+  2.00000               2.00000
+  2.00000               2.00000
+  2.00000               2.00000
+  1.00000               1.00000
+  1.00000               1.00000
+  1.00000               1.00000
+  1.00000               1.00000
+  1.00000               1.00000
+  0.50005               0.50000
+  0.50000               0.50000
+  0.50000               0.50000
+  0.50000               0.50000
+  0.50000               0.50000
+
+
+
+
+      program Simpson_cosine_function
+            implicit none
+            real :: a, b, h, f, s, s1, s2, s_odd, s_even, exact
+            integer :: i, n, k
+            open(unit = 11, file = 'simpcos.in')
+            open(unit = 22, file = 'simpcos.out')
+            write(22, 1)"method value       integration value"
+1           format(a)
+            do k = 1, 15
+                  read(11, 2) a, b, n
+2                 format(f4.1, f5.1, i5)
+                  a = a / 180.0 * acos(-1.0)
+                  b = b / 180.0 * acos(-1.0)
+                  s = f(a) + f(b)
+                  h = (b - a) / n
+                  s_odd = 0
+                  do i = 1 , (n) / 2
+                        s_odd = s_odd + 4 * f(a + (2 * i - 1) * h)
+                  end do
+                  s_even = 0
+                  do i = 1 , (n - 2) / 2
+                        s_even = s_even + 2 * f(a + 2 * i * h)
+                  end do 
+                  exact = (sin(b) - sin(a))
+                  s1 = s + s_odd + s_even
+                  s2 = h * s1 / 3
+                  write(22, 3)s2, exact
+3                 format(1x, f8.5, 14x, f8.5)
+            end do 
+            stop
+            end
+
+            real function f(x)
+            real :: x, n, test, term, sum
+            sum= 1
+            term = 1
+            test = 1e-6
+            n = 1
+            do while (abs(term).gt.test)
+                  term = - term * (x**2) / ((2 * n) * (2 * n - 1))
+                  sum = sum + term
+                  n = n + 1
+            end do
+            f = sum 
+            return 
+            end
+
+
+
+
+0.0 180.0 10
+0.0 180.0 50
+0.0 180.0 100
+0.0 180.0 500
+0.0 180.0 1000
+0.0 90.0 10
+0.0 90.0 50
+0.0 90.0 100
+0.0 90.0 500
+0.0 90.0 1000
+60.0 270.0 10
+60.0 270.0 50
+60.0 270.0 100
+60.0 270.0 500
+60.0 270.0 1000
+
+
+
+
+
+
+method value       integration value
+ -0.00000              -0.00000
+ -0.00000              -0.00000
+ -0.00000              -0.00000
+  0.00000              -0.00000
+ -0.00000              -0.00000
+  1.00000               1.00000
+  1.00000               1.00000
+  1.00000               1.00000
+  1.00000               1.00000
+  1.00000               1.00000
+ -1.86621              -1.86603
+ -1.86603              -1.86603
+ -1.86603              -1.86603
+ -1.86603              -1.86603
+ -1.86603              -1.86603
+
+
+
+
+      program Simpson_exponential_function
+            implicit none
+            real :: a, b, h, f, s, s1, s2, s_odd, s_even
+            integer :: i, n, k
+            open(unit = 11, file = 'simpexp.in')
+            open(unit = 22, file = 'simpexp.out')
+            write(22, 1)"integration value"
+1		format(a)
+            do k = 1, 15 
+                  read(11, 2) a, b, n
+2                 format(f4.1, f3.1, i4)
+                  s = f(a) + f(b)
+                  h = (b - a) / n
+                  s_odd = 0
+                  do i = 1 , (n) / 2
+                        s_odd = s_odd + 4 * f(a + (2 * i - 1) * h)
+                  end do
+                  s_even = 0
+                  do i = 1 , (n - 2) / 2
+                        s_even = s_even + 2 * f(a + 2 * i * h)
+                  end do 
+                  s1 = s + s_odd + s_even
+                  s2 = h * s1 / 3
+                  write(22, 3)s2
+3                 format(1x, f8.5)              
+            end do 
+            stop
+            end
+
+            real function f(x)
+            real :: x
+            f = x * exp(- x**2) 
+            return 
+            end
+
+
+
+
+0.0 2.0 10
+0.0 2.0 50
+0.0 2.0 100
+0.0 2.0 500
+0.0 2.0 1000
+-2.0 2.0 10
+-2.0 2.0 50
+-2.0 2.0 100
+-2.0 2.0 500
+-2.0 2.0 1000
+-3.0 0.0 10
+-3.0 0.0 50
+-3.0 0.0 100
+-3.0 0.0 500
+-3.0 0.0 1000
+
+
+
+integration value
+  0.49089
+  0.49084
+  0.49084
+  0.49084
+  0.49084
+  0.00000
+  0.00000
+  0.00000
+  0.00000
+  0.00000
+ -0.50024
+ -0.49994
+ -0.50024
+ -0.49994
+ -0.50024
+
+
+
+
+      program Simpson_quadratic_function
+            implicit none
+            real :: a, b, h, f, s, s1, s2, s_odd, s_even, exact
+            integer :: i, n, k
+            open(unit = 11, file = 'simpquad.in')
+            open(unit = 22, file = 'simpquad.out')
+            write(22, 1)"integration value"
+1		format(a)
+            do k = 1, 10
+                  read(11, 2) a, b, n
+2                 format(f4.1, f3.1, i4)
+                  s = f(a) + f(b)
+                  h = (b-a) / n
+                  s_odd = 0
+                  do i = 1 , (n) / 2
+                        s_odd = s_odd + 4 * f(a + (2 * i - 1) * h)
+                  end do
+                  s_even = 0
+                  do i = 1 , (n - 2) / 2
+                        s_even = s_even + 2 * f(a + 2 * i * h)
+                  end do 
+                  exact = (sin(b) - sin(a))
+                  s1 = s + s_odd + s_even
+                  s2 = h * s1 / 3
+                  write(22, 3)s2
+3                 format(1x, f8.5)              
+            end do 
+            stop
+            end
+
+            real function f(x)
+            real :: x
+            f = (x**2) + 5
+            return 
+            end
+
+
+
+
+-3.0 4.0 10
+-3.0 4.0 50
+-3.0 4.0 100
+-3.0 4.0 500
+-3.0 4.0 1000
+1.0 3.0 10
+1.0 3.0 50
+1.0 3.0 100
+1.0 3.0 500
+1.0 3.0 1000
+
+
+
+integration value
+ 65.33334
+ 65.33334
+ 65.33334
+ 65.33334
+ 65.33334
+ 18.66667
+ 18.66667
+ 18.66667
+ 18.66667
+ 18.66667
+
+
+
+
+      program Simpson_inverse_function
+            implicit none
+            real :: a, b, h, f, s, s1, s2, s_odd, s_even, exact
+            integer :: i, n, k
+            open(unit = 11, file = 'simpinv.in')
+            open(unit = 22, file = 'simpinv.out')
+            write(22, 1)"method value   integration value"
+1		format(a)
+            do k = 1, 3
+                  read(11,2) a, b, h
+2                 format(f3.1, 1x, f3.1, 1x, f5.3)
+                  s = f(a) + f(b)
+                  n = (b - a) / h
+                  s_odd = 0
+                  do i = 1 , (n) / 2
+                        s_odd = s_odd + 4 * f(a + (2 * i - 1) * h)
+                  end do
+                  s_even = 0
+                  do i = 1 , (n - 2) / 2
+                        s_even = s_even + 2 * f(a + 2 * i * h)
+                  end do 
+                  exact = (sin(b) - sin(a))
+                  s1 = s + s_odd + s_even
+                  s2 = h * s1 / 3
+                  exact = atan(2.0*2) / 2.0  - atan(2.0*0) / 2.0
+                  write(22, 3)s2, exact
+3                 format(1x, f8.5, 8x, f8.5)              
+            end do 
+            stop
+            end
+
+            real function f(x)
+            real :: x
+            f = 1 / (1 + 4 * x**2)
+            return 
+            end
+
+
+
+
+0.0 2.0 0.05
+0.0 2.0 0.01
+0.0 2.0 0.001
+
+
+
+
+method value   integration value
+  0.64526         0.66291
+  0.65938         0.66291
+  0.66244         0.66291
+
+
+
+
+      program Simpson_transcendental_function
+            implicit none
+            real :: a, b, h, f, g, s, s1, s2, s_odd, s_even, exact
+            integer :: i, n, k
+            open(unit = 11, file = 'simpfunc.in')
+            open(unit = 22, file = 'simpfunc.out')
+            write(22, 1)"method value   integration value"
+1		format(a)
+            do k = 1, 3
+                  read(11,2) a, b, h
+2                 format(f3.1, 1x, f3.1, 1x, f6.4)
+                  b = b * acos(-1.0)
+                  s1 = f(a) + f(b)
+                  n = (b-a) / h
+                  s_odd = 0
+                  do i = 1 , (n) / 2
+                        s_odd = s_odd + 4 * f(a + (2 * i - 1) * h)
+                  end do
+                  s_even = 0
+                  do i = 1 , (n - 2) / 2
+                        s_even = s_even + 2 * f(a + 2 * i * h)
+                  end do 
+                  exact = (sin(b) - sin(a))
+                  s1 = s + s_odd + s_even
+                  s2 = h * s1 / 3
+                  exact =  g(b) - g(a)
+                  write(22,3)s2, exact
+3                 format(1x, f8.5, 8x, f8.5)              
+            end do 
+            stop
+            end
+
+            real function f(x)
+            real :: x
+            f = sin(x) + (cos(2*x))**2
+            return 
+            end
+
+            real function g(x)
+            real :: x
+            g = (1.0/8.0) * (4 * x + sin(4*x) - 8 * cos(x))
+            return 
+            end
+            
+
+
+
+
+0.0 2.0 0.001
+0.0 2.0 0.005
+0.0 2.0 0.0001
+
+
+
+
+method value   integration value
+  3.13974         3.14159
+  3.13508         3.14159
+  3.14134         3.14159
+
+
+
+

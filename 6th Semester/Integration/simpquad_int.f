@@ -1,10 +1,10 @@
       program Simpson_quadratic_function
             implicit none
-            real :: a, b, h, f, s, s1, s2, s_odd, s_even, exact
+            real :: a, b, h, f, s, s1, s2, s_odd, s_even, exact, g
             integer :: i, n, k
             open(unit = 11, file = 'simpquad.in')
             open(unit = 22, file = 'simpquad.out')
-            write(22, 1)"integration value"
+            write(22, 1)"integration value   method value"
 1		format(a)
             do k = 1, 10
                   read(11, 2) a, b, n
@@ -22,8 +22,9 @@
                   exact = (sin(b) - sin(a))
                   s1 = s + s_odd + s_even
                   s2 = h * s1 / 3
-                  write(22, 3)s2
-3                 format(1x, f8.5)              
+                  exact = g(b) - g(a)
+			write(22, 3)exact, s2
+3                 format(3x, f8.5,11x, f8.5)              
             end do 
             stop
             end
@@ -32,4 +33,14 @@
             real :: x
             f = (x**2) + 5
             return 
+            end
+
+
+
+            real function g(x)
+            implicit none
+            real :: x,h
+            h = 1e-6
+            g = x ** 3 / 3 + 5 * x
+           return
             end

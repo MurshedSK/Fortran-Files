@@ -1,10 +1,10 @@
       program Simpson_exponential_function
             implicit none
-            real :: a, b, h, f, s, s1, s2, s_odd, s_even
+            real :: a, b, h, f, s, s1, s2, s_odd, s_even, g, exact  
             integer :: i, n, k
             open(unit = 11, file = 'simpexp.in')
             open(unit = 22, file = 'simpexp.out')
-            write(22, 1)"integration value"
+            write(22, 1)"integration value   method value"
 1		format(a)
             do k = 1, 15 
                   read(11, 2) a, b, n
@@ -21,8 +21,9 @@
                   end do 
                   s1 = s + s_odd + s_even
                   s2 = h * s1 / 3
-                  write(22, 3)s2
-3                 format(1x, f8.5)              
+                  exact = g(b) - g(a)
+                  write(22, 3)exact, s2
+3                 format(3x, f8.5, 9x, f8.5)            
             end do 
             stop
             end
@@ -32,3 +33,10 @@
             f = x * exp(- x**2) 
             return 
             end
+
+            real function g(x)
+		implicit none
+		real :: x
+		g = -1/(2*exp(x**2))
+		return
+		end

@@ -1,31 +1,40 @@
-          program Trapexp
-		implicit none
-		real :: a, b, h, f, s, s1
-		integer :: i, n, k
-		open(unit = 11, file = 'trapexp.in')
-		open(unit = 22, file = 'trapexp.out')
-		write(22, 1)"integration value"
+program Trapexp
+	implicit none
+	real :: a, b, h, f, s, s1, g, exact
+	integer :: i, n, k
+	open(unit = 11, file = 'trapexp.in')
+	open(unit = 22, file = 'trapexp.out')
+	write(22, 1)"integration value   method value"
 1		format(a)
-		do k = 1, 15 
-			read(11,2) a, b, n
-2                 format(f4.1, f3.1,i4)
-			s1 = f(a) + f(b)
-			h = (b-a)/n
-			do i = 1 , n-1
-				s1 = s1 + 2*f(a+i*h)
-			end do 
-			s = h*s1/2
-			write(22,3)s
-3                 	format(1x,f8.5)              
+	do k = 1, 15 
+		read(11, 2) a, b, n
+2                 format(f4.1, f3.1, i4)
+		s1 = f(a) + f(b)
+		h = (b-a) / n
+		do i = 1 , n-1
+			s1 = s1 + 2 * f(a+i*h)
 		end do 
-		stop
-		end
+		s = h * s1 / 2
+		exact = (g(b) - g(a))
+		write(22, 3)exact, s
+3                 format(3x, f8.5, 9x, f8.5)              
+	end do 
+	stop
+	end
 
-		real function f(x)
-		real :: x
-		f = x*exp(-x**2) 
-		return 
-		end
+	real function f(x)
+	real :: x
+	f = x * exp(- x**2) 
+	return 
+	end
+
+
+	real function g(x)
+	implicit none
+	real :: f, x
+	g = -1/(2*exp(x**2))
+	return
+	end
 
 
 
@@ -49,48 +58,62 @@
 
 
 
-integration value
- 12.68000
- 12.66720
- 12.66680
- 12.66667
- 12.66680
- 25.44000
- 25.33760
- 25.44000
- 25.33760
- 25.44000
+integration value   method value
+0.49084              0.48707
+0.49084              0.49069
+0.49084              0.49080
+0.49084              0.49084
+0.49084              0.49080
+0.00000              0.00000
+0.00000             -0.00000
+0.00000              0.00000
+0.00000             -0.00000
+0.00000              0.00000
+-0.49994            -0.49235
+-0.49994            -0.49964
+-0.49994            -0.49235
+-0.49994            -0.49964
+-0.49994            -0.49235
 
 
 
-          program Trapquad
-		implicit none
-		real :: a, b, h, f, s, s1
-		integer :: i, n, k
-		open(unit = 11, file = 'trapquad.in')
-		open(unit = 22, file = 'trapquad.out')
-		write(22, 1)"integration value"
+    program Trapquad
+	implicit none
+	real :: a, b, h, f, s, s1, g, exact
+	integer :: i, n, k
+	open(unit = 11, file = 'trapquad.in')
+	open(unit = 22, file = 'trapquad.out')
+	write(22, 1)"integration value   method value"
 1		format(a)
-		do k = 1, 10
-			read(11,2) a, b, n
-2                 format(f4.1, f3.1,i4)
-			s1 = f(a) + f(b)
-			h = (b-a)/n
-			do i = 1 , n-1
-				s1 = s1 + 2*f(a+i*h)
-			end do 
-			s = h*s1/2
-			write(22,3)s
-3                 	format(1x,f8.5)              
+	do k = 1, 10
+		read(11, 2) a, b, n
+2                 format(f4.1, f3.1, i4)
+		s1 = f(a) + f(b)
+		h = (b-a) / n
+		do i = 1 , n-1
+			s1 = s1 + 2 * f(a+i*h)
 		end do 
-		stop
-		end
+		s = h * s1 / 2
+		exact = g(b) - g(a)
+		write(22, 3)exact, s
+3                 format(3x, f8.5, 9x, f8.5)              
+	end do 
+	stop
+	end
 
-		real function f(x)
-		real :: x
-		f = (x**2)+5
-		return 
-		end
+	real function f(x)
+	real :: x
+	f = (x**2) + 5
+	return 
+	end
+
+	real function g(x)
+	implicit none
+	real :: f, x,h
+	h = 1e-6
+	g = x ** 3 / 3 + 5 * x
+	return
+	end
 
 
 
@@ -110,17 +133,18 @@ integration value
 
 
 
-integration value
- 65.90500
- 65.35620
- 65.90500
- 65.35620
- 65.90500
- 18.68000
- 18.66720
- 18.66680
- 18.66668
- 18.66680
+integration value   method value
+65.33334             65.90500
+65.33334             65.35620
+65.33334             65.90500
+65.33334             65.35620
+65.33334             65.90500
+18.66667             18.68000
+18.66667             18.66720
+18.66667             18.66680
+18.66667             18.66668
+18.66667             18.66680
+
 
 
 

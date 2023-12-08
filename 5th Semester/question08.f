@@ -4,7 +4,7 @@
             do i = 1, 10
                   read(11, 1)t
 1                 format(f6.4)
-                  if (0 .lt. 1) then
+                  if (t .lt. 1) then
                         x = t**3 - 8*t + 4
                         y = sin(t) + cos(2*t)
                         z = exp(3*t + 1)

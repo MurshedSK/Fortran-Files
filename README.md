@@ -1,4 +1,4 @@
-# Computational Physics Algorithms (Fortran)
+# Numerical Methods using Fortran
 
 This repository contains a collection of Fortran programs implementing fundamental numerical methods. These codes were developed during my B.Sc. in Physics to solve mathematical problems.
 
